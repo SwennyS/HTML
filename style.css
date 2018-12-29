@@ -1,0 +1,16 @@
+body {
+	background-color: rgb(255,200,155)
+}
+h1 {
+	font-size: 15px
+}
+#map{
+	width: 99%;
+	height: 750px;
+}
+.postit {
+	color: blue;
+	background: #2B8A6D;	
+	border-width: 20px;
+	border-color: #1B4C1A;
+}
