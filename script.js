@@ -39,6 +39,66 @@ L.control.layers({
 
 //////////////////////////              affichage des couches :            //////////////////////////   
 
+
+/////////////couche iris/////////////
+L.geoJSON(iris, {
+    style: function(feature) {
+        switch (feature.properties.name) {
+            case 'tchom': 
+         return ;
+        }
+    }
+});
+
+ function getColor(d) {
+    return d > 20 ? '#f1eef6' :
+           d > 15 ? '#d7b5d8' :
+           d > 10 ? '#df65b0' :
+           d > 5 ? '#dd1c77' :
+           d > 0 ? '#980043' :
+                           '#980043' ;       
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.tchom),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 1
+    };
+}
+L.geoJson(iris, {style: style}).addTo(map);
+
+
+var legend = L.control({position: 'bottomright'});
+
+   legend.onAdd = function (map) {
+
+      var div = L.DomUtil.create('div', 'info legend'),
+         grades = [0, 5, 10, 15, 20],
+         labels = [' Taux de chomage <br>'],
+         from, to;
+
+      for (var i = 0; i < grades.length; i++) {
+         from = grades[i];
+         to = grades[i + 1];
+
+         labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+      }
+
+      div.innerHTML = labels.join('<br>');
+      return div;
+   };
+
+legend.addTo(map);
+
+/////////////couche metro /////////////
+L.geoJSON(metro).addTo(map);
+
+
 /////////////couche autopartage/////////////
 
 L.geoJSON(autopartage, {
@@ -47,16 +107,6 @@ L.geoJSON(autopartage, {
         }
 }).addTo(map);
 
-/////////////couche iris/////////////
-
-L.geoJSON(iris).addTo(map);
-
-
-/////////////couche metro /////////////
-L.geoJSON(metro).addTo(map);
-
-
-/////////////couche metro /////////////
 
 
 
